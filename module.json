@@ -1,7 +1,7 @@
 {
-  "name": "module",
-  "title": "New Module",
-  "description": "",
+  "name": "fvtt-bcdice",
+  "title": "BCDice",
+  "description": "A FoundryVTT module to query BCDice servers for dice rolls",
   "version": "This is auto replaced",
   "library": "false",
   "manifestPlusVersion": "1.0.0",
@@ -9,25 +9,15 @@
   "compatibleCoreVersion": "0.7.9",
   "authors": [
     {
-      "name": "The League of Extraordinary FVTT Developers",
-      "url": "https://github.com/League-of-Foundry-Developers",
-      "discord": "discordID#0001"
+      "name": "Jason",
+      "discord": "jsinme#6969"
     }
   ],
-  "dependencies": [
-
-  ],
-  "conflicts": [
-    
-  ],
   "esmodules": [
-    "/scripts/module.js"
-  ],
-  "scripts": [
-    "/scripts/lib/lib.js"
+    "/scripts/bcdice.js"
   ],
   "styles": [
-    "/styles/module.css"
+    "/styles/bcdice.css"
   ],
   "languages": [
     {
