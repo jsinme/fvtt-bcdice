@@ -14,7 +14,8 @@
     }
   ],
   "esmodules": [
-    "/scripts/bcdice.js"
+    "/scripts/bcdice.js",
+    "/scripts/persistent-dialog.js"
   ],
   "styles": [
     "/styles/bcdice.css"

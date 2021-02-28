@@ -1,3 +1,5 @@
+import PersistentDialog from "./persistent-dialog.js"
+
 Hooks.once('ready', async function () {
     $("#controls").append('<li id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>')
     $("#bc-dice-control").click(() => {
@@ -20,7 +22,7 @@ function showDialog() {
                                     <input id="bc-formula" type="text" name="BCDice Formula">
                                 </p>
                             </form>`;
-        const d = new Dialog({
+        const d = new PersistentDialog({
             title: "BCDice Roller",
             content: formData,
             buttons: {
@@ -37,7 +39,7 @@ function showDialog() {
                                 return response.json();
                             })
                             .then(data => {
-                                ChatMessage.create({content: data.text});
+                                ChatMessage.create({ content: data.text });
                             })
                             .catch(err => {
                                 console.log(err);
@@ -47,7 +49,7 @@ function showDialog() {
                 },
                 cancel: {
                     label: "Cancel",
-                    callback: () => { }
+                    callback: () => { d.close() }
                 }
             },
             default: "roll"
