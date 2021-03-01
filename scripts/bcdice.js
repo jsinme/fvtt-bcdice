@@ -3,12 +3,16 @@ import PersistentDialog from "./persistent-dialog.js"
 Hooks.once('ready', async function () {
     $("#controls").append('<li id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>')
     $("#bc-dice-control").click(() => {
-        showDialog();
+        showRoller();
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.ctrlKey && event.key === 'B') showRoller();
     });
 });
 
-function showDialog() {
-    $.get("https://bcdice.onlinesession.app/v2/game_system", (data, status) => {
+function showRoller() {
+    $.get("https://bcdice.trpg.net/v2/game_system", (data, status) => {
         const systems = data.game_system.map(el => {
             return `<option value="${el.id}">${el.name}</option>`;
         });
@@ -19,7 +23,7 @@ function showDialog() {
                                 </p>
                                 <p>
                                     <label for="bc-formula">Enter formula:</label>
-                                    <input id="bc-formula" type="text" name="BCDice Formula">
+                                    <input id="bc-formula" type="text" name="BCDice Formula" autofocus>
                                 </p>
                             </form>`;
         const d = new PersistentDialog({
@@ -31,7 +35,7 @@ function showDialog() {
                     callback: () => {
                         const system = $("#bc-systems option:selected").val();
                         const command = $("#bc-formula").val();
-                        fetch(`https://bcdice.onlinesession.app/v2/game_system/${system}/roll?command=${command}`)
+                        fetch(`https://bcdice.trpg.net/v2/game_system/${system}/roll?command=${command}`)
                             .then(response => {
                                 if (!response.ok) {
                                     throw new Error();
