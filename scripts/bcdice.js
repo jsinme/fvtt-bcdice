@@ -5,7 +5,7 @@ let d;
 Hooks.once('ready', async function () {
     await setupRoller();
 
-    $("#controls").append('<li id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>')
+    $("#controls").append('<li id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>');
     $("#bc-dice-control").click(() => {
         showRoller();
     });
@@ -17,6 +17,7 @@ Hooks.once('ready', async function () {
 
 function showRoller() {
     Hooks.once('renderApplication', async function () {
+        $("#bc-systems").val(game.users.get(game.userId).getFlag('fvtt-bcdice', 'sys-id'));
         $("#bc-formula").focus();
     });
     d.render(true);
@@ -36,15 +37,15 @@ async function setupRoller() {
     });
 
     const formData = `  <form id="bc-form">
-                                <p>
-                                    <label for="bc-systems">Choose a system:</label>
-                                    <select id="bc-systems" name="Systems">${systems.join("")}</select>
-                                </p>
-                                <p>
-                                    <label for="bc-formula">Enter formula:</label>
-                                    <input id="bc-formula" type="text" name="BCDice Formula">
-                                </p>
-                            </form>`;
+                            <p>
+                                <label for="bc-systems">Choose a system:</label>
+                                <select id="bc-systems" name="Systems">${systems.join("")}</select>
+                            </p>
+                            <p>
+                                <label for="bc-formula">Enter formula:</label>
+                                <input id="bc-formula" type="text" name="BCDice Formula">
+                            </p>
+                        </form>`;
 
     d = new BCDiceDialog({
         title: "BCDice Roller",
@@ -52,30 +53,39 @@ async function setupRoller() {
         buttons: {
             roll: {
                 label: "Roll",
-                callback: () => {
+                callback: async () => {
                     const system = $("#bc-systems option:selected").val();
                     const command = $("#bc-formula").val();
-                    fetch(`https://bcdice.trpg.net/v2/game_system/${system}/roll?command=${command}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error();
+
+                    try {
+                        const res = await fetch(`https://bcdice.trpg.net/v2/game_system/${system}/roll?command=${command}`);
+                        if (!res.ok) {
+                            ChatMessage.create({
+                                content: "Invalid Formula. Please try again.",
+                                speaker: {
+                                    alias: "BCRoller"
+                                }
+                            });
+                            throw 'Server Responded with Invalid Formula';
+                        }
+                        const data = await res.json();
+
+                        ChatMessage.create({
+                            content: data.text,
+                            speaker: {
+                                alias: "BCRoller"
                             }
-                            return response.json();
-                        })
-                        .then(data => {
-                            ChatMessage.create({ content: data.text });
-                        })
-                        .catch(err => {
-                            console.log(err);
-                            ChatMessage.create({ content: "Invalid Formula. Please try again." });
                         });
+                    } catch (err) {
+                        console.log(err);
+                    }
+
+                    game.users.get(game.userId).setFlag('fvtt-bcdice', 'sys-id', `${system}`);
                 }
-            },
-            cancel: {
-                label: "Cancel",
-                callback: () => { d.close() }
             }
         },
         default: "roll"
     });
+
+    game.users.get(game.userId).setFlag('fvtt-bcdice', 'sys-id', data.game_system[0].id);
 }
