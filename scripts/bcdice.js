@@ -61,7 +61,8 @@ async function setupRoller() {
                         const res = await fetch(`https://bcdice.trpg.net/v2/game_system/${system}/roll?command=${command}`);
                         if (!res.ok) {
                             ChatMessage.create({
-                                content: "Invalid Formula. Please try again.",
+                                content: `<p>Invalid Formula. Please try again.</p>
+                                            <p>Command: ${command}</p>`,
                                 speaker: {
                                     alias: "BCRoller"
                                 }
@@ -71,7 +72,8 @@ async function setupRoller() {
                         const data = await res.json();
 
                         ChatMessage.create({
-                            content: data.text,
+                            content: `<p>${data.text}</p>
+                                        <p>Command: ${command}</p>`,
                             speaker: {
                                 alias: "BCRoller"
                             }
