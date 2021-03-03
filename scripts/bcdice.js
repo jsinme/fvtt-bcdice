@@ -1,6 +1,6 @@
 import BCDiceDialog from "./bcdice-dialog.js"
 
-let d;
+let roller;
 
 Hooks.once('ready', async function () {
     await setupRoller();
@@ -20,7 +20,7 @@ function showRoller() {
         $("#bc-systems").val(game.users.get(game.userId).getFlag('fvtt-bcdice', 'sys-id'));
         $("#bc-formula").focus();
     });
-    d.render(true);
+    roller.render(true);
 }
 
 async function setupRoller() {
@@ -47,7 +47,7 @@ async function setupRoller() {
                             </p>
                         </form>`;
 
-    d = new BCDiceDialog({
+    roller = new BCDiceDialog({
         title: "BCDice Roller",
         content: formData,
         buttons: {

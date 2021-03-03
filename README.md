@@ -3,7 +3,18 @@
 
 # BCDice
 
-A FoundryVTT module to query BCDice servers for dice rolls
+A module to query the BCDice API for dice rolls
 
 ## Changelog
+0.1
+ - BCDice Control in left controls bar
+ - Roller Application that allows a user to select from a list of available systems, input a command, and submit that command to the api
+ - Chat Message containing result fo the roll
 
+0.2
+ - Added keyboard shortcut for launching Roller (Ctrl + Shift + B)
+ - Browser will focus on the command input field when Roller is brought up
+ - Roller will not close after submitting a roll
+    - Unless "Shift + Enter" is used. Then the Roller will submit the roll, close, and focus the browser on the Chat Message input
+ - Roller will now remember the last selected game system when reopened
+ - Result chat message will now also contain the original command below the result
