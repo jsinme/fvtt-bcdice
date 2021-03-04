@@ -1,6 +1,8 @@
 import BCDiceDialog from "./bcdice-dialog.js"
 
 let roller;
+const audio = new Audio('/modules/fvtt-bcdice/resources/nc42340.wav');
+audio.volume = 0.25;
 
 Hooks.once('ready', async function () {
     await setupRoller();
@@ -15,18 +17,34 @@ Hooks.once('ready', async function () {
     });
 });
 
+// Hooks.on()
+
 function showRoller() {
-    Hooks.once('renderApplication', async function () {
-        $("#bc-systems").val(game.users.get(game.userId).getFlag('fvtt-bcdice', 'sys-id'));
-        $("#bc-formula").focus();
-    });
     roller.render(true);
+}
+
+async function getSysHelp(system) {
+    let data;
+    try {
+        const res = await fetch(`https://bcdice.trpg.net/v2/game_system/${system}`);
+        if (!res.ok) throw "Failed to get system help"
+        data = await res.json();
+    } catch (err) {
+        console.log(err);
+    }
+    console.log(data);
+    const helpDialog = Dialog.prompt({
+        title: `${system}`,
+        content: `${data.help_message}`,
+        callback: () => {}
+    })
 }
 
 async function setupRoller() {
     let data;
     try {
         const res = await fetch("https://bcdice.trpg.net/v2/game_system");
+        if (!res.ok) throw "Failed to get game systems"
         data = await res.json();
     } catch (err) {
         console.log(err)
@@ -40,6 +58,7 @@ async function setupRoller() {
                             <p>
                                 <label for="bc-systems">Choose a system:</label>
                                 <select id="bc-systems" name="Systems">${systems.join("")}</select>
+                                <i id="bc-system-help" class="fas fa-question-circle"></i>
                             </p>
                             <p>
                                 <label for="bc-formula">Enter formula:</label>
@@ -78,6 +97,8 @@ async function setupRoller() {
                                 alias: "BCRoller"
                             }
                         });
+
+                        audio.play();
                     } catch (err) {
                         console.log(err);
                     }
@@ -86,7 +107,14 @@ async function setupRoller() {
                 }
             }
         },
-        default: "roll"
+        default: "roll",
+        render: () => {
+            $("#bc-system-help").click(() => {
+                getSysHelp($("#bc-systems option:selected").val());
+            })
+            $("#bc-systems").val(game.users.get(game.userId).getFlag('fvtt-bcdice', 'sys-id'));
+            $("#bc-formula").focus();
+        }
     });
 
     game.users.get(game.userId).setFlag('fvtt-bcdice', 'sys-id', data.game_system[0].id);
