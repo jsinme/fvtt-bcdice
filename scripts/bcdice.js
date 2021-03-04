@@ -32,11 +32,17 @@ async function getSysHelp(system) {
     } catch (err) {
         console.log(err);
     }
-    console.log(data);
+
+    const helpArray = data.help_message.trim().split('\n');
+
+    let helpMessage = helpArray
+        .map(el => `<p>${el}</p>`)
+        .join('\n');
+
     const helpDialog = Dialog.prompt({
         title: `${system}`,
-        content: `${data.help_message}`,
-        callback: () => {}
+        content: `${helpMessage}`,
+        callback: () => { }
     })
 }
 
