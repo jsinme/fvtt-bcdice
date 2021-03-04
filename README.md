@@ -18,3 +18,7 @@ A module to query the BCDice API for dice rolls
     - Unless "Shift + Enter" is used. Then the Roller will submit the roll, close, and focus the browser on the Chat Message input
  - Roller will now remember the last selected game system when reopened
  - Result chat message will now also contain the original command below the result
+
+ 0.2.1
+ - Added help button to get info on a System
+ - Added a sound to be played when a roll occurs
