@@ -1,7 +1,7 @@
 import BCDiceDialog from "./bcdice-dialog.js"
 
 let roller;
-const audio = new Audio('/modules/fvtt-bcdice/resources/nc42340.wav');
+const audio = new Audio('/sounds/dice.wav');
 audio.volume = 0.25;
 
 Hooks.once('ready', async function () {
@@ -38,7 +38,7 @@ async function getSysHelp(system) {
     let helpMessage = helpArray
         .map(el => `<p>${el}</p>`)
         .join('\n');
-
+    
     const helpDialog = Dialog.prompt({
         title: `${system}`,
         content: `${helpMessage}`,
