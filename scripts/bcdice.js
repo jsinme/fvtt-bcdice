@@ -2,7 +2,6 @@ import BCDiceDialog from "./bcdice-dialog.js"
 
 let roller;
 const audio = new Audio('/sounds/dice.wav');
-audio.volume = 0.25;
 
 Hooks.once('ready', async function () {
     await setupRoller();
@@ -17,7 +16,6 @@ Hooks.once('ready', async function () {
     });
 });
 
-// Hooks.on()
 
 function showRoller() {
     roller.render(true);
@@ -38,7 +36,7 @@ async function getSysHelp(system) {
     let helpMessage = helpArray
         .map(el => `<p>${el}</p>`)
         .join('\n');
-    
+
     const helpDialog = Dialog.prompt({
         title: `${system}`,
         content: `${helpMessage}`,
@@ -82,8 +80,12 @@ async function setupRoller() {
                     const system = $("#bc-systems option:selected").val();
                     const command = $("#bc-formula").val();
 
+                    const url = new URL(`https://bcdice.trpg.net/v2/game_system/${system}/roll`);
+                    const params = url.searchParams;
+                    params.append('command', command);
+
                     try {
-                        const res = await fetch(`https://bcdice.trpg.net/v2/game_system/${system}/roll?command=${command}`);
+                        const res = await fetch(url);
                         if (!res.ok) {
                             ChatMessage.create({
                                 content: `<p>Invalid Formula. Please try again.</p>
