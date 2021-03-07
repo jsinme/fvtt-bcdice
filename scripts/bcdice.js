@@ -97,10 +97,11 @@ async function setupRoller() {
                             throw 'Server Responded with Invalid Formula';
                         }
                         const data = await res.json();
+                        const message = `   <p>${String(data.text).replace(/,/g, ',\u200B')}</p>
+                                            <p>Command: ${command}</p>`;
 
                         ChatMessage.create({
-                            content: `<p>${data.text}</p>
-                                        <p>Command: ${command}</p>`,
+                            content: message,
                             speaker: {
                                 alias: "BCRoller"
                             }
