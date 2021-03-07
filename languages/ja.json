@@ -1,6 +1,6 @@
 {
-  "fvtt-bcdice.chooseSystem": "Choose a system",
-  "fvtt-bcdice.enterFormula": "Enter formula",
-  "fvtt-bcdice.invalidFormula": "Invalid formula. Please try again.",
-  "fvtt-bcdice.alias": "BCRoller"
+  "fvtt-bcdice.chooseSystem": "ダイスボットシステム",
+  "fvtt-bcdice.enterFormula": "コマンド",
+  "fvtt-bcdice.invalidFormula": "一致するコマンドが見つかりませんでした。",
+  "fvtt-bcdice.alias": "DiceBot"
 }
