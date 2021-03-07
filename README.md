@@ -22,3 +22,14 @@ A module to query the BCDice API for dice rolls
  0.2.1
  - Added help button to get info on a System
  - Added a sound to be played when a roll occurs
+
+ 0.2.2
+ - Fixed formatting for System help messages
+
+ 0.2.3
+ - Changed dice rolling sound to native foundry sound
+ - Special characters in commands are now escaped properly
+ - Long single line commands outputs should now wrap properly
+ - Multi line results will now be properly displayed
+ - Roller outputs have been reformated for clarity
+ - Added link to bcdice docs at the top of each System help message
