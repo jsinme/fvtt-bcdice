@@ -31,10 +31,13 @@ async function getSysHelp(system) {
         console.log(err);
     }
 
-    const helpArray = data.help_message.trim().split('\n');
-
-    let helpMessage = helpArray
-        .map(el => `<p>${el}</p>`)
+    const helpMessage = data.help_message
+        .trim()
+        .split('\n\n')
+        .reduce((acc, el) => {
+            acc.push(`<p>${el}</p>`);
+            return acc;
+        }, ['<p><a href="https://docs.bcdice.org/">https://docs.bcdice.org/</a></p>'])
         .join('\n');
 
     const helpDialog = Dialog.prompt({
@@ -99,10 +102,10 @@ async function setupRoller() {
                         const data = await res.json();
 
                         const results = data.text
-                                            .split('\n\n')
-                                            .map(el => `<p>${el}</p>`)
-                                            .join('')
-                                            .replace(/,/g, ',\u200B');
+                            .split('\n\n')
+                            .map(el => `<p>${el}</p>`)
+                            .join('')
+                            .replace(/,/g, ',\u200B');
 
                         const message = `   <div>
                                                 <p>
