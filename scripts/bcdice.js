@@ -77,10 +77,10 @@ async function setupRoller() {
             roll: {
                 label: "Roll",
                 callback: async () => {
-                    const system = $("#bc-systems option:selected").val();
+                    const system = $("#bc-systems option:selected");
                     const command = $("#bc-formula").val();
 
-                    const url = new URL(`https://bcdice.trpg.net/v2/game_system/${system}/roll`);
+                    const url = new URL(`https://bcdice.trpg.net/v2/game_system/${system.val()}/roll`);
                     const params = url.searchParams;
                     params.append('command', command);
 
@@ -104,8 +104,22 @@ async function setupRoller() {
                                             .join('')
                                             .replace(/,/g, ',\u200B');
 
-                        const message = `   <div>${results}</div>
-                                            <div>Command: ${command}</div>`;
+                        const message = `   <div>
+                                                <p>
+                                                    <em>${game.users.get(game.userId).name}:</em>
+                                                </p>
+                                                <div>
+                                                    ${command}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p>
+                                                    <em>${system.text()}:</em>
+                                                </p>
+                                                <div>
+                                                    ${results}
+                                                </div>
+                                            </div>`;
 
                         ChatMessage.create({
                             content: message,
