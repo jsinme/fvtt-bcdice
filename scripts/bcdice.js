@@ -6,7 +6,9 @@ const audio = new Audio("/sounds/dice.wav");
 Hooks.once("ready", async function () {
   await setupRoller();
 
-  $("#controls").append('<li id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>');
+  $("#controls").append(
+    '<li id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>'
+  );
   $("#bc-dice-control").click(() => {
     showRoller();
   });
@@ -69,17 +71,19 @@ async function setupRoller() {
     return `<option value="${el.id}">${el.name}</option>`;
   });
 
-  const formData = `  <form id="bc-form">
-                            <p>
-                                <label for="bc-systems">${chooseSystemText}:</label>
-                                <select id="bc-systems">${systems.join("")}</select>
-                                <i id="bc-system-help" class="fas fa-question-circle"></i>
-                            </p>
-                            <p>
-                                <label for="bc-formula">${enterFormulaText}:</label>
-                                <input id="bc-formula" type="text">
-                            </p>
-                        </form>`;
+  const formData = `<form id="bc-form">
+                        <p>
+                            <label for="bc-systems">${chooseSystemText}:</label>
+                            <select id="bc-systems">${systems.join(
+                                ""
+                            )}</select>
+                            <i id="bc-system-help" class="fas fa-question-circle"></i>
+                        </p>
+                        <p>
+                            <label for="bc-formula">${enterFormulaText}:</label>
+                            <input id="bc-formula" type="text">
+                        </p>
+                    </form>`;
 
   roller = new BCDiceDialog({
     title: "BCDice Roller",
@@ -92,7 +96,9 @@ async function setupRoller() {
           const system = $("#bc-systems option:selected");
           const command = $("#bc-formula").val();
 
-          const url = new URL(`https://bcdice.trpg.net/v2/game_system/${system.val()}/roll`);
+          const url = new URL(
+            `https://bcdice.trpg.net/v2/game_system/${system.val()}/roll`
+          );
           const params = url.searchParams;
           params.append("command", command);
 
@@ -117,48 +123,55 @@ async function setupRoller() {
               .replace(/,/g, ",\u200B");
 
             const message = `   <div>
-                                                <p>
-                                                    <em>${user.name}:</em>
-                                                </p>
-                                                <div>
-                                                    ${command}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p>
-                                                    <em>${system.text()}:</em>
-                                                </p>
-                                                <div>
-                                                    ${results}
-                                                </div>
-                                            </div>`;
-              var rolls = {
-                  throws:[{
-                      dice:[]
-                  }]
-              };
-              for (var i=0; i<data.rands.length; i++){
-              rolls.throws[0].dice.push(
-              {"result":data.rands[i].value,"resultLabel":data.rands[i].value, "type":"d"+data.rands[i].sides, "vectors":[], "options":{}}
-              );
-              }
+                                    <p>
+                                        <em>${user.name}:</em>
+                                    </p>
+                                    <div>
+                                        ${command}
+                                    </div>
+                                </div>
+                                <div>
+                                    <p>
+                                        <em>${system.text()}:</em>
+                                    </p>
+                                    <div>
+                                        ${results}
+                                    </div>
+                                </div>`;
+            var rolls = {
+              throws: [
+                {
+                  dice: [],
+                },
+              ],
+            };
+            for (var i = 0; i < data.rands.length; i++) {
+              rolls.throws[0].dice.push({
+                result: data.rands[i].value,
+                resultLabel: data.rands[i].value,
+                type: "d" + data.rands[i].sides,
+                vectors: [],
+                options: {},
+              });
+            }
 
-            game.dice3d.show(rolls).then(displayed => { 
-
-            ChatMessage.create({
-              content: message,
-              speaker: {
-                alias: "BCRoller",
-              },
+            game.dice3d.show(rolls).then((displayed) => {
+              ChatMessage.create({
+                content: message,
+                speaker: {
+                  alias: "BCRoller",
+                },
+              });
             });
-            }); 
 
             audio.play();
           } catch (err) {
             console.log(err);
           }
 
-          game.users.get(game.userId).setFlag("fvtt-bcdice", "sys-id", `${system}`);
+          game.users
+            .get(game.userId)
+            .setFlag("fvtt-bcdice", "sys-id", `${system}`);
         },
       },
     },
@@ -167,10 +180,14 @@ async function setupRoller() {
       $("#bc-system-help").click(() => {
         getSysHelp($("#bc-systems option:selected").val());
       });
-      $("#bc-systems").val(game.users.get(game.userId).getFlag("fvtt-bcdice", "sys-id"));
+      $("#bc-systems").val(
+        game.users.get(game.userId).getFlag("fvtt-bcdice", "sys-id")
+      );
       $("#bc-formula").focus();
     },
   });
 
-  game.users.get(game.userId).setFlag("fvtt-bcdice", "sys-id", data.game_system[0].id);
+  game.users
+    .get(game.userId)
+    .setFlag("fvtt-bcdice", "sys-id", data.game_system[0].id);
 }
