@@ -32,7 +32,7 @@ async function getSysHelp(system) {
 
   const helpMessage = data.help_message
     .trim()
-    .split("\n\n")
+    .split("\n")
     .reduce(
       (acc, el) => {
         acc.push(`<p>${el}</p>`);
@@ -111,7 +111,7 @@ async function setupRoller() {
             const data = await res.json();
 
             const results = data.text
-              .split("\n\n")
+              .split("\n")
               .map((el) => `<p>${el}</p>`)
               .join("")
               .replace(/,/g, ",\u200B");
@@ -132,6 +132,18 @@ async function setupRoller() {
                                                     ${results}
                                                 </div>
                                             </div>`;
+              var rolls = {
+                  throws:[{
+                      dice:[]
+                  }]
+              };
+              for (var i=0; i<data.rands.length; i++){
+              rolls.throws[0].dice.push(
+              {"result":data.rands[i].value,"resultLabel":data.rands[i].value, "type":"d"+data.rands[i].sides, "vectors":[], "options":{}}
+              );
+              }
+
+            game.dice3d.show(rolls).then(displayed => { 
 
             ChatMessage.create({
               content: message,
@@ -139,6 +151,7 @@ async function setupRoller() {
                 alias: "BCRoller",
               },
             });
+            }); 
 
             audio.play();
           } catch (err) {
