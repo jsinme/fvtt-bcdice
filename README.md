@@ -33,3 +33,6 @@ A module to query the BCDice API for dice rolls
  - Multi line results will now be properly displayed
  - Roller outputs have been reformated for clarity
  - Added link to bcdice docs at the top of each System help message
+
+ 0.2.4
+ - Added localization for Japanese
