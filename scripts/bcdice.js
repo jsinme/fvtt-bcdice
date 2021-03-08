@@ -32,7 +32,7 @@ async function getSysHelp(system) {
 
   const helpMessage = data.help_message
     .trim()
-    .split("\n\n")
+    .split("\n")
     .reduce(
       (acc, el) => {
         acc.push(`<p>${el}</p>`);
@@ -111,7 +111,7 @@ async function setupRoller() {
             const data = await res.json();
 
             const results = data.text
-              .split("\n\n")
+              .split("\n")
               .map((el) => `<p>${el}</p>`)
               .join("")
               .replace(/,/g, ",\u200B");
