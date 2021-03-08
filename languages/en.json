@@ -1,4 +1,5 @@
 {
+  "fvtt-bcdice.rollButton": "Roll",
   "fvtt-bcdice.chooseSystem": "Choose a system",
   "fvtt-bcdice.enterFormula": "Enter formula",
   "fvtt-bcdice.invalidFormula": "Invalid formula. Please try again.",

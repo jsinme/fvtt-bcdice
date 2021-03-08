@@ -50,6 +50,7 @@ async function getSysHelp(system) {
 }
 
 async function setupRoller() {
+  const rollButtonText = game.i18n.localize("fvtt-bcdice.rollButton");
   const chooseSystemText = game.i18n.localize("fvtt-bcdice.chooseSystem");
   const enterFormulaText = game.i18n.localize("fvtt-bcdice.enterFormula");
   const invalidFormulaText = game.i18n.localize("fvtt-bcdice.invalidFormula");
@@ -85,7 +86,7 @@ async function setupRoller() {
     content: formData,
     buttons: {
       roll: {
-        label: "Roll",
+        label: rollButtonText,
         callback: async () => {
           const user = game.users.get(game.userId);
           const system = $("#bc-systems option:selected");

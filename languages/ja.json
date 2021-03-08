@@ -1,4 +1,5 @@
 {
+  "fvtt-bcdice.rollButton": "ロール",
   "fvtt-bcdice.chooseSystem": "ダイスボットシステム",
   "fvtt-bcdice.enterFormula": "コマンド",
   "fvtt-bcdice.invalidFormula": "一致するコマンドが見つかりませんでした。",

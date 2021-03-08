@@ -13,18 +13,18 @@
       "discord": "jsinme#6969"
     }
   ],
-  "esmodules": [
-    "/scripts/bcdice.js",
-    "/scripts/persistent-dialog.js"
-  ],
-  "styles": [
-    "/styles/bcdice.css"
-  ],
+  "esmodules": ["/scripts/bcdice.js", "/scripts/persistent-dialog.js"],
+  "styles": ["/styles/bcdice.css"],
   "languages": [
     {
       "lang": "en",
       "name": "English",
       "path": "languages/en.json"
+    },
+    {
+      "lang": "ja",
+      "name": "Japanese",
+      "path": "languages/ja.json"
     }
   ],
   "url": "This is auto replaced",
