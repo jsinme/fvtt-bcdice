@@ -170,20 +170,24 @@ async function setupRoller() {
                                     </div>
                                 </div>`;
 
-            if (game.settings.get("dice-so-nice", "enabled")) {
+            const messageOptions = {
+              content: message,
+              speaker: {
+                alias: aliasText
+              }
+            };
+
+            if (game.dice3d?.isEnabled()) {
               const rolls = parseBCtoDSN(data.rands);
 
               game.dice3d.show(rolls, game.user, true).then(displayed => {
-                const messageOptions = {
-                  content: message,
-                  speaker: {
-                    alias: aliasText
-                  }
-                };
                 if (!rolls.throws[0].dice.length) messageOptions.sound = "sounds/dice.wav";
-                ChatMessage.create(messageOptions);
               });
+            } else {
+              messageOptions.sound = "sounds/dice.wav";
             }
+            
+            ChatMessage.create(messageOptions);
           } catch (err) {
             console.log(err);
           }
