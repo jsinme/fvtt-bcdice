@@ -1,6 +1,9 @@
 import BCDiceDialog from "./bcdice-dialog.js";
 import { parseBCtoDSN, appendDSNRoll } from "./dsn-utilities.js";
 
+var shiftCharCode = Δ => c => String.fromCharCode(c.charCodeAt(0) + Δ);
+var toHalfWidth = str => str.replace(/[！-～]/g, shiftCharCode(-0xfee0));
+
 function showRoller(roller) {
   roller.render(true);
 }
@@ -80,7 +83,7 @@ async function setupRoller() {
         callback: async () => {
           const user = game.users.get(game.userId);
           const system = $("#bc-systems option:selected");
-          const command = $("#bc-formula").val();
+          const command = toHalfWidth($("#bc-formula").val());
 
           const url = new URL(`https://bcdice.trpg.net/v2/game_system/${system.val()}/roll`);
           const params = url.searchParams;
@@ -132,10 +135,8 @@ async function setupRoller() {
 
             if (game.dice3d?.isEnabled()) {
               const rolls = parseBCtoDSN(data.rands);
-
-              game.dice3d.show(rolls, game.user, true).then(displayed => {
-                if (!rolls.throws[0].dice.length) messageOptions.sound = "sounds/dice.wav";
-              });
+              if (!rolls.throws[0].dice.length) messageOptions.sound = "sounds/dice.wav";
+              await game.dice3d.show(rolls, game.user, true).then(displayed => {});
             } else {
               messageOptions.sound = "sounds/dice.wav";
             }
