@@ -89,6 +89,12 @@ async function setupRoller() {
           const params = url.searchParams;
           params.append("command", command);
 
+          const userMessageOptions = {
+            content: `<p><em>${system.text()}:</em> ${command}</p>`
+          };
+
+          ChatMessage.create(userMessageOptions);
+
           try {
             const res = await fetch(url);
             if (!res.ok) {
@@ -109,22 +115,14 @@ async function setupRoller() {
               .join("")
               .replace(/,/g, ",\u200B");
 
-            const message = `   <div>
-                                    <p>
-                                        <em>${user.name}:</em>
-                                    </p>
-                                    <div>
-                                        ${command}
-                                    </div>
-                                </div>
+            const message = ` <div>
+                                <p>
+                                  <em>${system.text()}:</em>
+                                </p>
                                 <div>
-                                    <p>
-                                        <em>${system.text()}:</em>
-                                    </p>
-                                    <div>
-                                        ${results}
-                                    </div>
-                                </div>`;
+                                  ${results}
+                                </div>
+                              </div>`;
 
             const messageOptions = {
               content: message,
