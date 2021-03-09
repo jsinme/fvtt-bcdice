@@ -1,11 +1,12 @@
 export default class BCDialog extends Dialog {
   submit(button, close = false) {
     try {
-      if (button.callback)
+      if (button.callback) {
         button.callback(this.options.jQuery ? this.element : this.element[0]);
-      if (close) {
-        this.close();
-        $("#chat-message").focus();
+        if (close) {
+          $("#chat-message").focus();
+          this.close();
+        }
       }
     } catch (err) {
       ui.notifications.error(err);
