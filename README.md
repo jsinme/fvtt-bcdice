@@ -1,7 +1,7 @@
-![](https://img.shields.io/badge/Foundry-v0.7.9-informational)
-![Latest Release Download Count](https://img.shields.io/github/downloads/jsinme/fvtt-bcdice/latest/module.zip)
+# BCRoller
 
-# BCDice
+![Foundry Version Compatability](https://img.shields.io/badge/Foundry-v0.7.9-informational)
+![Latest Release Download Count](https://img.shields.io/github/downloads/jsinme/fvtt-bcdice/latest/module.zip)
 
 A module to query the BCDice API for dice rolls
 
@@ -13,7 +13,7 @@ A module to query the BCDice API for dice rolls
 - Roller Application that allows a user to select from a list of available systems, input a command, and submit that command to the api
 - Chat Message containing result fo the roll
 
-0.2
+  0.2
 
 - Added keyboard shortcut for launching Roller (Ctrl + Shift + B)
 - Browser will focus on the command input field when Roller is brought up
@@ -43,3 +43,7 @@ A module to query the BCDice API for dice rolls
   0.2.4
 
 - Added localization for Japanese
+
+  0.3 Dice So Nice!
+
+- Added support for DSN
