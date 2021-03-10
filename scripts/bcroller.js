@@ -90,9 +90,13 @@ async function setupRoller() {
           params.append("command", command);
 
           const userMessageOptions = {
-            content: `<p><em>${system.text()}:</em> ${command}</p>`,
-            type: command.charAt(0).toLowerCase() === "s" ? 1 : 0
+            content: `<p><em>${system.text()}:</em> ${command}</p>`
           };
+          const secret = command.charAt(0).toLowerCase() === "s";
+          if (secret) {
+            userMessageOptions.type = 1;
+            userMessageOptions.whisper = [user.id];
+          }
 
           ChatMessage.create(userMessageOptions);
 
@@ -129,9 +133,12 @@ async function setupRoller() {
               content: message,
               speaker: {
                 alias: aliasText
-              },
-              type: data.secret ? 1 : 0
+              }
             };
+            if (data.secret) {
+              messageOptions.type = 1;
+              messageOptions.whisper = [user.id];
+            }
 
             if (game.dice3d?.isEnabled()) {
               const rolls = parseBCtoDSN(data.rands);
