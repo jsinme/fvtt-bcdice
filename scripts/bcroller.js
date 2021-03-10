@@ -65,7 +65,7 @@ async function setupRoller() {
   const formData = `<form id="bc-form">
                         <p>
                             <label for="bc-systems">${chooseSystemText}:</label>
-                            <select id="bc-systems">${systems.join("")}</select>
+                            <select id="bc-systems" class="s2">${systems.join("")}</select>
                             <i id="bc-system-help" class="fas fa-question-circle"></i>
                         </p>
                         <p>
@@ -150,6 +150,7 @@ async function setupRoller() {
     },
     default: "roll",
     render: () => {
+      $(".s2").select2();
       $("#bc-system-help").click(() => {
         getSysHelp($("#bc-systems option:selected"));
       });
