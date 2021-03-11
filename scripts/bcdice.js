@@ -3,6 +3,8 @@ import { showRoller, getSysHelp, setupRoller } from "./bcroller.js";
 let roller;
 
 Hooks.once("init", async () => {
+  registerSettings();
+
   const select2Style = document.createElement("link");
   const select2Script = document.createElement("script");
 
@@ -27,3 +29,14 @@ Hooks.once("ready", async function () {
     if (event.ctrlKey && event.shiftKey && event.key === "B") showRoller(roller);
   });
 });
+
+function registerSettings() {
+  game.settings.register("fvtt-bcdice", "roller-persistance", {
+    name: "Roller Persistance",
+    hint: "Should the roller stay open after submitting a roll?",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
+}

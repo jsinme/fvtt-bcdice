@@ -26,7 +26,7 @@ export default class BCDialog extends Dialog {
       event.preventDefault();
       event.stopPropagation();
       const defaultChoice = this.data.buttons[this.data.default];
-      return this.submit(defaultChoice, event.shiftKey);
+      return this.submit(defaultChoice, event.shiftKey || !game.settings.get("fvtt-bcdice", "roller-persistance"));
     }
   }
 }
