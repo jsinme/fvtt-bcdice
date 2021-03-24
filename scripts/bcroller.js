@@ -1,5 +1,5 @@
 import BCDiceDialog from "./bcdice-dialog.js";
-import { parseBCtoDSN, appendDSNRoll } from "./dsn-utilities.js";
+import { parseBCtoDSN } from "./dsn-utilities.js";
 
 var shiftCharCode = Δ => c => String.fromCharCode(c.charCodeAt(0) + Δ);
 var toHalfWidth = str => str.replace(/[！-～]/g, shiftCharCode(-0xfee0)).replace(/　/g, " ");
