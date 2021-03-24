@@ -47,3 +47,9 @@ A module to query the BCDice API for dice rolls
   0.3 Dice So Nice!
 
 - Added support for DSN
+
+0.4
+- Added System Search
+- Added Secret Roll Support
+- Added Roller Persistance setting
+- Bug Fixes
