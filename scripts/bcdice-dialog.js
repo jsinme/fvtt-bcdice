@@ -23,10 +23,12 @@ export default class BCDialog extends Dialog {
     }
     // Confirm default choice
     if (event.key === "Enter" && this.data.default) {
-      event.preventDefault();
-      event.stopPropagation();
-      const defaultChoice = this.data.buttons[this.data.default];
-      return this.submit(defaultChoice, event.shiftKey || !game.settings.get("fvtt-bcdice", "roller-persistance"));
+      if ($("#bc-formula").is(":focus")) {
+        event.preventDefault();
+        event.stopPropagation();
+        const defaultChoice = this.data.buttons[this.data.default];
+        return this.submit(defaultChoice, event.shiftKey || !game.settings.get("fvtt-bcdice", "roller-persistance"));
+      }
     }
   }
 }

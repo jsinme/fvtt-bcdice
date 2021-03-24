@@ -159,16 +159,18 @@ async function setupRoller() {
     },
     default: "roll",
     render: () => {
-      $(".s2").select2();
       $("#bc-system-help").click(() => {
         getSysHelp($("#bc-systems option:selected"));
       });
       $("#bc-systems").val(game.users.get(game.userId).getFlag("fvtt-bcdice", "sys-id"));
       $("#bc-formula").focus();
+      $(".s2").select2();
     }
   });
 
-  game.users.get(game.userId).setFlag("fvtt-bcdice", "sys-id", data.game_system[0].id);
+  if (game.users.get(game.userId).getFlag("fvtt-bcdice", "sys-id") === undefined) {
+    game.users.get(game.userId).setFlag("fvtt-bcdice", "sys-id", data.game_system[0].id);
+  }
 
   return roller;
 }
