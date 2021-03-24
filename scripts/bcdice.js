@@ -15,7 +15,7 @@ Hooks.once("init", async () => {
   document.head.appendChild(select2Script);
 })
 
-Hooks.once("ready", async function () {
+Hooks.on("getSceneControlButtons", async function () {
   roller = await setupRoller();
 
   $("#controls").append('<li id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>');
