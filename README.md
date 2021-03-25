@@ -3,7 +3,17 @@
 ![Foundry Version Compatability](https://img.shields.io/badge/Foundry-v0.7.9-informational)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/jsinme/fvtt-bcdice/latest/module.zip)
 
-A module to query the BCDice API for dice rolls
+A module to query the BCDice API for dice rolls. BCDice is the largest dice rolling bot in Japan, containing 100s of different TRPG systems and playstyles.　You can find the sourcecode [here](https://github.com/bcdice/BCDice). Please feel free to join their Discord and discuss your favorite Japanese TRPGs. You can even submit localization files for them.
+Alternatively, if you have a system which foundry does not support, you can submit how that system does dice rolls and it can be implemented in BCDice (thus allowing you to use that system in foundry). Currently, the majority of users are from Japan and Korea. Looking forward to seeing others joing the team!
+
+## BCDice
+日本で最も使われている、TRPG用ダイスロール処理システムです。どどんとふ、ココフォリア、ユドナリウム、TRPGスタジオなど様々なオンセツールで使われています。（https://bcdice.org/ より引用）
+Modの使い方はWikiよりご確認ください。
+https://foundryvtt.wiki/ja/BCDice
+
+また、このModは日本コミュニティの支援により開発されました。
+プログラマの方はどうぞ気軽にIssueやPRをしてください。その他の方は以下のWikiにあるコミュニティDiscordに入り（事前確認不要）、BCDiceチャンネルで要望をご報告ください。
+https://foundryvtt.wiki/ja/home
 
 ## Changelog
 
