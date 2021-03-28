@@ -152,8 +152,6 @@ async function setupRoller() {
           } catch (err) {
             console.log(err);
           }
-
-          user.setFlag("fvtt-bcdice", "sys-id", `${system.val()}`);
         }
       }
     },
@@ -165,6 +163,9 @@ async function setupRoller() {
       $("#bc-systems").val(game.users.get(game.userId).getFlag("fvtt-bcdice", "sys-id"));
       $("#bc-formula").focus();
       $(".s2").select2();
+      $(".s2").on("select2:select", e => {
+        game.users.get(game.userId).setFlag("fvtt-bcdice", "sys-id", `${e.params.data.id}`);
+      });
     }
   });
 

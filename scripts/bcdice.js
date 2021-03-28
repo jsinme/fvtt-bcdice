@@ -15,11 +15,10 @@ Hooks.once("init", async () => {
 
   document.head.appendChild(select2Style);
   document.head.appendChild(select2Script);
-
-  roller = await setupRoller();
 });
 
 Hooks.once("ready", async () => {
+  roller = await setupRoller();
   document.addEventListener("keydown", event => {
     if (event.ctrlKey && event.shiftKey && event.key === "B") showRoller(roller);
   });
