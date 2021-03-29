@@ -157,10 +157,11 @@ async function setupRoller() {
     },
     default: "roll",
     render: () => {
+      const system = game.users.get(game.userId).getFlag("fvtt-bcdice", "sys-id") ?? game.settings.get("fvtt-bcdice", "game-system");
       $("#bc-system-help").click(() => {
         getSysHelp($("#bc-systems option:selected"));
       });
-      $("#bc-systems").val(game.users.get(game.userId).getFlag("fvtt-bcdice", "sys-id"));
+      $("#bc-systems").val(system);
       $("#bc-formula").focus();
       $(".s2").select2();
       $(".s2").on("select2:select", e => {
@@ -168,10 +169,6 @@ async function setupRoller() {
       });
     }
   });
-
-  if (game.users.get(game.userId).getFlag("fvtt-bcdice", "sys-id") === undefined) {
-    game.users.get(game.userId).setFlag("fvtt-bcdice", "sys-id", data.game_system[0].id);
-  }
 
   return roller;
 }

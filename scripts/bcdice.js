@@ -26,14 +26,14 @@ Hooks.once("ready", async () => {
 
 Hooks.on("renderSceneControls", async function () {
   if (!$("#bc-dice-control").length) {
-    $("#controls").append('<li id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>');
+    $("#controls").append('<li class="scene-control" id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>');
     $("#bc-dice-control").click(() => {
       showRoller(roller);
     });
   }
 });
 
-function registerSettings() {
+async function registerSettings() {
   game.settings.register("fvtt-bcdice", "roller-persistance", {
     name: "Roller Persistance",
     hint: "Should the roller stay open after submitting a roll?",
@@ -41,5 +41,29 @@ function registerSettings() {
     config: true,
     type: Boolean,
     default: true
+  });
+
+  let data;
+  try {
+    const res = await fetch("https://bcdice.trpg.net/v2/game_system");
+    if (!res.ok) throw "Failed to get game systems";
+    data = await res.json();
+  } catch (err) {
+    console.log(err);
+  }
+
+  const systems = data.game_system.reduce((acc, el) => {
+    acc[el.id] = el.name;
+    return acc;
+  }, {});
+
+  game.settings.register("fvtt-bcdice", "game-system", {
+    name: "Game System",
+    hint: "Set the default system to be used",
+    scope: "world",
+    config: true,
+    type: String,
+    choices: systems,
+    default: data.game_system[0].id
   });
 }
