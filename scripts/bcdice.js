@@ -43,9 +43,19 @@ async function registerSettings() {
     default: true
   });
 
+  game.settings.register("fvtt-bcdice", "bc-server", {
+    name: "BCDice API Server",
+    hint: "Server Status List: https://api-status.bcdice.org/",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "https://bcdice.trpg.net/v2"
+  });
+
+  const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
   let data;
   try {
-    const res = await fetch("https://bcdice.trpg.net/v2/game_system");
+    const res = await fetch(`${bcServer}/game_system`);
     if (!res.ok) throw "Failed to get game systems";
     data = await res.json();
   } catch (err) {

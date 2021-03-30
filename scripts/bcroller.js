@@ -10,10 +10,10 @@ function showRoller(roller) {
 
 async function getSysHelp(system) {
   const aliasText = game.i18n.localize("fvtt-bcdice.alias");
-
+  const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
   let data;
   try {
-    const res = await fetch(`https://bcdice.trpg.net/v2/game_system/${system.val()}`);
+    const res = await fetch(`${bcServer}/game_system/${system.val()}`);
     if (!res.ok) throw "Failed to get system help";
     data = await res.json();
   } catch (err) {
@@ -48,10 +48,11 @@ async function setupRoller() {
   const enterFormulaText = game.i18n.localize("fvtt-bcdice.enterFormula");
   const invalidFormulaText = game.i18n.localize("fvtt-bcdice.invalidFormula");
   const aliasText = game.i18n.localize("fvtt-bcdice.alias");
-
+  const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
+  
   let data;
   try {
-    const res = await fetch("https://bcdice.trpg.net/v2/game_system");
+    const res = await fetch(`${bcServer}/game_system`);
     if (!res.ok) throw "Failed to get game systems";
     data = await res.json();
   } catch (err) {
@@ -85,7 +86,8 @@ async function setupRoller() {
           const system = $("#bc-systems option:selected");
           const command = toHalfWidth($("#bc-formula").val());
 
-          const url = new URL(`https://bcdice.trpg.net/v2/game_system/${system.val()}/roll`);
+          const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
+          const url = new URL(`${bcServer}/game_system/${system.val()}/roll`);
           const params = url.searchParams;
           params.append("command", command);
 
