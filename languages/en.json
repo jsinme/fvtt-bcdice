@@ -3,5 +3,11 @@
   "fvtt-bcdice.chooseSystem": "Choose a system",
   "fvtt-bcdice.enterFormula": "Enter formula",
   "fvtt-bcdice.invalidFormula": "Invalid formula. Please try again.",
-  "fvtt-bcdice.alias": "BCRoller"
+  "fvtt-bcdice.alias": "BCRoller",
+  "fvtt-bcdice.persistanceSettingName": "Roller Persistance",
+  "fvtt-bcdice.persistanceSettingHint": "Should the roller stay open after submitting a roll?",
+  "fvtt-bcdice.serverSettingName": "BCDice API Server",
+  "fvtt-bcdice.serverSettingHint": "Server Status List: https://api-status.bcdice.org/",
+  "fvtt-bcdice.systemSettingName": "Game System",
+  "fvtt-bcdice.systemSettingHint": "Set the default system to be used"
 }

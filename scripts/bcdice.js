@@ -34,9 +34,16 @@ Hooks.on("renderSceneControls", async function () {
 });
 
 async function registerSettings() {
+  const persistanceSettingName = game.i18n.localize("fvtt-bcdice.persistanceSettingName");
+  const persistanceSettingHint = game.i18n.localize("fvtt-bcdice.persistanceSettingHint");
+  const serverSettingName = game.i18n.localize("fvtt-bcdice.serverSettingName");
+  const serverSettingHint = game.i18n.localize("fvtt-bcdice.serverSettingHint");
+  const systemSettingName = game.i18n.localize("fvtt-bcdice.systemSettingName");
+  const systemSettingHint = game.i18n.localize("fvtt-bcdice.systemSettingHint");
+
   game.settings.register("fvtt-bcdice", "roller-persistance", {
-    name: "Roller Persistance",
-    hint: "Should the roller stay open after submitting a roll?",
+    name: persistanceSettingName,
+    hint: persistanceSettingHint,
     scope: "client",
     config: true,
     type: Boolean,
@@ -44,8 +51,8 @@ async function registerSettings() {
   });
 
   game.settings.register("fvtt-bcdice", "bc-server", {
-    name: "BCDice API Server",
-    hint: "Server Status List: https://api-status.bcdice.org/",
+    name: serverSettingName,
+    hint: serverSettingHint,
     scope: "world",
     config: true,
     type: String,
@@ -68,8 +75,8 @@ async function registerSettings() {
   }, {});
 
   game.settings.register("fvtt-bcdice", "game-system", {
-    name: "Game System",
-    hint: "Set the default system to be used",
+    name: systemSettingName,
+    hint: systemSettingHint,
     scope: "world",
     config: true,
     type: String,
