@@ -1,5 +1,7 @@
 import BCDiceDialog from "./bcdice-dialog.js";
 import { parseBCtoDSN } from "./dsn-utilities.js";
+import { APIError } from "./errors.js";
+import { getHelpText, getRoll, getSystems } from "./remote-api.js";
 
 var shiftCharCode = Δ => c => String.fromCharCode(c.charCodeAt(0) + Δ);
 var toHalfWidth = str => str.replace(/[！-～]/g, shiftCharCode(-0xfee0)).replace(/　/g, " ");
@@ -10,16 +12,7 @@ function showRoller(roller) {
 
 async function getSysHelp(system) {
   const aliasText = game.i18n.localize("fvtt-bcdice.alias");
-  const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
-  let data;
-  try {
-    const res = await fetch(`${bcServer}/game_system/${system.val()}`);
-    if (!res.ok) throw "Failed to get system help";
-    data = await res.json();
-  } catch (err) {
-    console.log(err);
-    return;
-  }
+  const data = await getHelpText(system.val())
 
   const helpMessage = data.help_message
     .trim()
@@ -48,16 +41,8 @@ async function setupRoller() {
   const enterFormulaText = game.i18n.localize("fvtt-bcdice.enterFormula");
   const invalidFormulaText = game.i18n.localize("fvtt-bcdice.invalidFormula");
   const aliasText = game.i18n.localize("fvtt-bcdice.alias");
-  const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
   
-  let data;
-  try {
-    const res = await fetch(`${bcServer}/game_system`);
-    if (!res.ok) throw "Failed to get game systems";
-    data = await res.json();
-  } catch (err) {
-    console.log(err);
-  }
+  const data = await getSystems()
 
   const systems = data.game_system.map(el => {
     return `<option value="${el.id}">${el.name}</option>`;
@@ -86,11 +71,6 @@ async function setupRoller() {
           const system = $("#bc-systems option:selected");
           const command = toHalfWidth($("#bc-formula").val());
 
-          const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
-          const url = new URL(`${bcServer}/game_system/${system.val()}/roll`);
-          const params = url.searchParams;
-          params.append("command", command);
-
           const userMessageOptions = {
             content: `<p><em>${system.text()}:</em> ${command}</p>`
           };
@@ -103,18 +83,7 @@ async function setupRoller() {
           ChatMessage.create(userMessageOptions);
 
           try {
-            const res = await fetch(url);
-            if (!res.ok) {
-              ChatMessage.create({
-                content: `<p>${invalidFormulaText}</p>
-                            <p>${user.name}: ${command}</p>`,
-                speaker: {
-                  alias: aliasText
-                }
-              });
-              throw "Server Responded with Invalid Formula";
-            }
-            const data = await res.json();
+            const data = await getRoll(system.val(), command);
 
             const results = data.text
               .split("\n")
@@ -152,6 +121,15 @@ async function setupRoller() {
 
             ChatMessage.create(messageOptions);
           } catch (err) {
+            if (err instanceof APIError) {
+              ChatMessage.create({
+                content: `<p>${invalidFormulaText}</p>
+                          <p>${user.name}: ${command}</p>`,
+                speaker: {
+                  alias: aliasText
+                }
+              });
+            }
             console.log(err);
           }
         }
