@@ -1,0 +1,13 @@
+<form id="bc-form">
+  <p>
+      <label for="bc-systems">{{chooseSystemText}}:</label>
+      <select id="bc-systems" class="s2">
+      {{#each systems}}<option value="{{this.id}}">{{this.name}}</option>{{/each}}
+      </select>
+      <i id="bc-system-help" class="fas fa-question-circle"></i>
+  </p>
+  <p>
+      <label for="bc-formula">{{enterFormulaText}}:</label>
+      <input id="bc-formula" type="text">
+  </p>
+</form>

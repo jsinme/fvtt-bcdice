@@ -41,24 +41,12 @@ async function setupRoller() {
   const enterFormulaText = game.i18n.localize("fvtt-bcdice.enterFormula");
   const invalidFormulaText = game.i18n.localize("fvtt-bcdice.invalidFormula");
   const aliasText = game.i18n.localize("fvtt-bcdice.alias");
-  
-  const data = await getSystems()
 
-  const systems = data.game_system.map(el => {
-    return `<option value="${el.id}">${el.name}</option>`;
-  });
+  const systems = await getSystems();
 
-  const formData = `<form id="bc-form">
-                        <p>
-                            <label for="bc-systems">${chooseSystemText}:</label>
-                            <select id="bc-systems" class="s2">${systems.join("")}</select>
-                            <i id="bc-system-help" class="fas fa-question-circle"></i>
-                        </p>
-                        <p>
-                            <label for="bc-formula">${enterFormulaText}:</label>
-                            <input id="bc-formula" type="text">
-                        </p>
-                    </form>`;
+  const formData = await renderTemplate('modules/fvtt-bcdice/templates/dialog.html', {
+    chooseSystemText, enterFormulaText, systems
+  })
 
   const roller = new BCDiceDialog({
     title: "BCDice Roller",
