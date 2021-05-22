@@ -60,7 +60,6 @@ async function registerSettings() {
     default: "https://bcdice.trpg.net/v2"
   });
 
-  const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
   const data = await getSystems()
 
   const systems = data.reduce((acc, el) => {

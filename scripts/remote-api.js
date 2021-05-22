@@ -11,7 +11,6 @@ let _cachedSystems;
 export async function getSystems() {
   if (!_cachedSystems) {
     try {
-      _cachedSystems = await doRequest;
       const request = await fetch(`${getDiceServer()}/game_system`);
       _cachedSystems = (await request.json()).game_system;
     } catch (e) {
