@@ -1,0 +1,52 @@
+<div class="tab" data-group="primary" data-tab="macro-{{tabID}}">
+  {{#if @root.editing}}
+    <div class="flexrow">
+      <input type="text" name="tabs.{{tabID}}.name" value="{{this.name}}">
+      <button type="button" data-delete-tab="{{tabID}}"><i class="fa fa-trash-alt"></i> {{localize "fvtt-bcdice.deleteThisTab"}}</button>
+    </div>
+  {{/if}}
+  {{#each macro.headers as |headerGroup headerID|}}
+  <div data-header="{{../tabID}}-{{headerID}}">
+    <h3>
+      <i class="fa {{#if headerGroup.open}}fa-caret-down{{else}}fa-caret-right{{/if}}"></i>
+        {{headerGroup.name}}
+    </h3>
+    {{#if @root.editing}}
+      <div class="flexrow">
+        <input type="text" name="tabs.{{../tabID}}.headers.{{headerID}}.name" value="{{headerGroup.name}}">
+        <button type="button" data-delete-header="{{../tabID}}-{{headerID}}">{{localize "fvtt-bcdice.deleteHeader"}}</button>
+      </div>
+
+    {{/if}}
+    {{#if headerGroup.open}}
+    <div>
+      {{#each headerGroup.macros as |macro macroID|}}
+        {{#if @root.editing}}
+          <div class="flexrow">
+            <input type="text" name="tabs.{{../../tabID}}.headers.{{headerID}}.macros.{{macroID}}.display" value="{{macro.display}}">
+            <input type="text" name="tabs.{{../../tabID}}.headers.{{headerID}}.macros.{{macroID}}.macro" value="{{macro.macro}}">
+            <a class="flex0" data-delete-macro="{{../../tabID}}-{{headerID}}-{{macroID}}">
+              <i class="fa fa-trash-alt"></i>
+            </a>
+          </div>
+        {{else}}
+          <button class="bcd-macro-button" type="button" data-macro="{{../../tabID}}-{{headerID}}-{{macroID}}">
+            {{macro.display}} - {{macro.macro}}
+          </button>
+        {{/if}}
+      {{/each}}
+      {{#if @root.editing}}
+        <div class="flexrow">
+          <button type="button" data-add-macro="{{../tabID}}-{{headerID}}">Add Macro</button>
+        </div>
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+  {{/each}}
+  {{#if @root.editing}}
+    <div class="flexrow">
+      <button type="button" class="bc-add-header" data-tab="{{tabID}}">Add Header</button>
+    </div>
+  {{/if}}
+</div>

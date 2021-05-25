@@ -1,0 +1,39 @@
+<div>
+  <label>{{localize "fvtt-bcdice.tabName"}}:</label>
+  <input name="tab-name" type="text" />
+  <label>Import:</label>
+  <textarea></textarea>
+  <div class="flexrow">
+    <div>
+      <label>{{localize "fvtt-bcdice.headerMarker"}}:</label>
+      <input
+        name="header-marker"
+        type="text"
+        value="{{settings.headers.start}}"
+      />
+    </div>
+    <div>
+      <label>{{localize "fvtt-bcdice.headerTrim"}}:</label>
+      <input name="header-trim" type="text" value="{{settings.headers.end}}" />
+    </div>
+  </div>
+  <div class="flexrow">
+    <div class="flexcol">
+      <label>{{localize "fvtt-bcdice.macroLabelOrder"}}:</label>
+      <select name="order">
+        {{#select settings.macro.order}}
+        <option value="left">{{localize "fvtt-bcdice.macroThanLabel"}}</option>
+        <option value="right">{{localize "fvtt-bcdice.labelThanMacro"}}</option>
+        {{/select}}
+      </select>
+    </div>
+    <div>
+      <label>{{localize "fvtt-bcdice.macroSplitter"}}:</label>
+      <input
+        type="text"
+        name="macro-splitter"
+        value="{{settings.macro.splitter}}"
+      />
+    </div>
+  </div>
+</div>

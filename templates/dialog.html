@@ -1,13 +1,38 @@
 <form id="bc-form">
   <p>
-      <label for="bc-systems">{{chooseSystemText}}:</label>
-      <select id="bc-systems" class="s2">
-      {{#each systems}}<option value="{{this.id}}">{{this.name}}</option>{{/each}}
-      </select>
-      <i id="bc-system-help" class="fas fa-question-circle"></i>
+    <label for="bc-systems">{{localize "fvtt-bcdice.chooseSystem"}}:</label>
+    <select id="bc-systems" class="s2">
+      {{#each systems}}
+      <option value="{{this.id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+    <a><i id="bc-system-help" class="fas fa-question-circle"></i></a>
   </p>
+  <div>{{type}}: {{entity.name}}</div>
+  <div class="flexrow tabs bcdice-tabs" data-group="primary">
+    {{#each data.tabs}}
+    <div class="item flex1" data-group="primary" data-tab="macro-{{@index}}">
+      {{this.name}}
+    </div>
+    {{/each}}
+    {{#if @root.editing}}
+      <a class="item flex1 add-tab">
+        <i class="fa fa-plus"></i>
+      </a>
+    {{/if}}
+  </div>
+  <div class="flexcol bcdice-macro-page">
+    {{#each data.tabs}}
+      {{>"modules/fvtt-bcdice/templates/macro.html" macro=this tabID=@index}}
+    {{/each}}
+  </div>
   <p>
-      <label for="bc-formula">{{enterFormulaText}}:</label>
-      <input id="bc-formula" type="text">
+    <label for="bc-formula">{{localize "fvtt-bcdice.enterFormula"}}:</label>
+    <input id="bc-formula" name="roll" type="text" value="{{data.roll}}" />
   </p>
+  <div>
+    <button data-button="roll" type="button">
+      {{localize "fvtt-bcdice.rollButton"}}
+    </button>
+  </div>
 </form>
