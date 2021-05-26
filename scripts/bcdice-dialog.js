@@ -296,7 +296,7 @@ export default class BCDialog extends FormApplication {
       },
       macro: {
         order: "left",
-        splitter: "▼",
+        splitter: " ",
       },
       replacements: {
         varDef: "//",
