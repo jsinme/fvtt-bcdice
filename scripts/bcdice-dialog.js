@@ -125,7 +125,7 @@ export default class BCDialog extends FormApplication {
     const set = new Set();
     while (replacedMacro.match(/\{\s*(.+)\s*\}/g)) {
       replacedMacro = replacedMacro.replaceAll(
-        /\{\s*(.+)\s*\}/g,
+        /\{\s*([^\}]+)\s*\}/g,
         (_, token) => {
           if (set.has(token)) return "";
           return replacements[token] ?? "";
