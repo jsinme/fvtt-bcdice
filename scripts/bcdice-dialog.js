@@ -6,6 +6,8 @@ import {
 import MacroParser from "./macro-parser.js";
 import { getHelpText, getSystems } from "./remote-api.js";
 
+const replacementRegex = /\{\s*([^\}]+)\s*\}/g;
+
 export default class BCDialog extends FormApplication {
   constructor() {
     super({});
@@ -123,14 +125,11 @@ export default class BCDialog extends FormApplication {
     let replacedMacro = macro;
     const replacements = this.replacements;
     const set = new Set();
-    while (replacedMacro.match(/\{\s*(.+)\s*\}/g)) {
-      replacedMacro = replacedMacro.replaceAll(
-        /\{\s*([^\}]+)\s*\}/g,
-        (_, token) => {
-          if (set.has(token)) return "";
-          return replacements[token] ?? "";
-        }
-      );
+    while (replacedMacro.match(replacementRegex)) {
+      replacedMacro = replacedMacro.replaceAll(replacementRegex, (_, token) => {
+        if (set.has(token)) return "";
+        return replacements[token] ?? "";
+      });
     }
     roll(this.getSystem(), replacedMacro);
   }
@@ -277,8 +276,8 @@ export default class BCDialog extends FormApplication {
         const set = new Set();
         set.add(key);
         let val = value;
-        while (val.match(/\{(.+)\}/)) {
-          val = val.replace(/\{\s*([^\}]+)\s*}/, (_, string) => {
+        while (val.match(replacementRegex)) {
+          val = val.replace(replacementRegex, (_, string) => {
             if (set.has(string)) return "";
             return map.get(string.trim());
           });
