@@ -380,22 +380,27 @@ export default class BCDialog extends FormApplication {
       { replacements: getDataForCurrentEntity().replacements }
     );
 
-    this.dialog = new Dialog({
-      title: game.i18n.localize("fvtt-bcdice.bcdiceReplacements"),
-      content: dialogContent,
-      type: "replacements",
-      buttons: {
-        ok: {
-          icon: '<i class="fas fa-save"></i>',
-          label: "Save",
-          callback: async (html) => {
-            const replacements = html.find("textarea[name=replacements]").val();
-            await this._updateObject(null, { replacements });
-            this.dialog = null;
+    this.dialog = new Dialog(
+      {
+        title: game.i18n.localize("fvtt-bcdice.bcdiceReplacements"),
+        content: dialogContent,
+        type: "replacements",
+        buttons: {
+          ok: {
+            icon: '<i class="fas fa-save"></i>',
+            label: "Save",
+            callback: async (html) => {
+              const replacements = html
+                .find("textarea[name=replacements]")
+                .val();
+              await this._updateObject(null, { replacements });
+              this.dialog = null;
+            },
           },
         },
       },
-    });
+      { width: 600 }
+    );
     this.dialog.render(true);
   }
 
