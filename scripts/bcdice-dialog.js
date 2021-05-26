@@ -278,7 +278,7 @@ export default class BCDialog extends FormApplication {
         set.add(key);
         let val = value;
         while (val.match(/\{(.+)\}/)) {
-          val = val.replace(/\{\s*(.+)\s*\}/, (_, string) => {
+          val = val.replace(/\{\s*([^\}]+)\s*}/, (_, string) => {
             if (set.has(string)) return "";
             return map.get(string.trim());
           });
