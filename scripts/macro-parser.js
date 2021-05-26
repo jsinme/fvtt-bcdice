@@ -83,7 +83,7 @@ export default class MacroParser {
    */
   process(name, text) {
     const tab = (this.currentResults = { headers: [], name });
-    this.addHeader("Default Header");
+    this.addHeader(game.i18n.localize("fvtt-bcdice.defaultHeader"));
     const lines = text.split("\n");
     for (const line of lines) {
       if (line.trim() === "") continue;

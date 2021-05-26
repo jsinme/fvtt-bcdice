@@ -31,5 +31,8 @@
   "fvtt-bcdice.deleteHeader": "Delete Header",
   "fvtt-bcdice.deleteThisHeader": "Delete this Header?",
   "fvtt-bcdice.deleteHeaderBody": "Are you sure you want to delete this header, including all the macros on it?",
-  "fvtt-bcdice.newMacro": "New Macro"
+  "fvtt-bcdice.newMacro": "New Macro",
+  "fvtt-bcdice.defaultHeader": "Default Header",
+  "fvtt-bcdice.addHeader": "Add Header",
+  "fvtt-bcdice.addMacro": "Add Macro"
 }

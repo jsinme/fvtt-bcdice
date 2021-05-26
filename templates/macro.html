@@ -37,7 +37,7 @@
       {{/each}}
       {{#if @root.editing}}
         <div class="flexrow">
-          <button type="button" data-add-macro="{{../tabID}}-{{headerID}}">Add Macro</button>
+          <button type="button" data-add-macro="{{../tabID}}-{{headerID}}">{{localize "fvtt-bcdice.addMacro"}}</button>
         </div>
       {{/if}}
     </div>
@@ -46,7 +46,7 @@
   {{/each}}
   {{#if @root.editing}}
     <div class="flexrow">
-      <button type="button" class="bc-add-header" data-tab="{{tabID}}">Add Header</button>
+      <button type="button" class="bc-add-header" data-tab="{{tabID}}">{{localize "fvtt-bcdice.addHeader"}}</button>
     </div>
   {{/if}}
 </div>
