@@ -45,9 +45,9 @@ function appendDSNRoll(acc, value, sides) {
 }
 
 async function roll(system, formula) {
-  const aliasText = game.i18n.localize("fvtt-bcdice.alias");
+  const aliasText = `${system}`;
   const userMessageOptions = {
-    content: `<p><em>${system}:</em> ${formula}</p>`,
+    content: `${formula}`,
   };
   const secret = formula.charAt(0).toLowerCase() === "s";
   if (secret) {
@@ -65,14 +65,11 @@ async function roll(system, formula) {
       .join("")
       .replace(/,/g, ",\u200B");
 
-    const message = ` <div>
-                      <p>
-                        <em>${system}:</em>
-                      </p>
+    const message = `
                       <div>
                         ${results}
                       </div>
-                    </div>`;
+                    `;
 
     const messageOptions = {
       content: message,
@@ -102,13 +99,13 @@ async function roll(system, formula) {
       const invalidFormulaText = game.i18n.localize(
         "fvtt-bcdice.invalidFormula"
       );
-      ChatMessage.create({
-        content: `<p>${invalidFormulaText}</p>
-                  <p>${game.user.name}: ${formula}</p>`,
-        speaker: {
-          alias: aliasText,
-        },
-      });
+      //ChatMessage.create({
+      //  content: `<p>${invalidFormulaText}</p>
+      //            <p>${game.user.name}: ${formula}</p>`,
+      //  speaker: {
+      //    alias: aliasText,
+      //  },
+      //});
     }
     console.error(err);
   }
