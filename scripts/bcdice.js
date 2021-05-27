@@ -1,4 +1,5 @@
 import { showRoller, setupRoller } from "./bcroller.js";
+import { getSystems } from "./remote-api.js";
 
 let roller;
 
@@ -59,17 +60,9 @@ async function registerSettings() {
     default: "https://bcdice.trpg.net/v2"
   });
 
-  const bcServer = game.settings.get("fvtt-bcdice", "bc-server") ?? "https://bcdice.trpg.net/v2";
-  let data;
-  try {
-    const res = await fetch(`${bcServer}/game_system`);
-    if (!res.ok) throw "Failed to get game systems";
-    data = await res.json();
-  } catch (err) {
-    console.log(err);
-  }
+  const data = await getSystems()
 
-  const systems = data.game_system.reduce((acc, el) => {
+  const systems = data.reduce((acc, el) => {
     acc[el.id] = el.name;
     return acc;
   }, {});
@@ -81,6 +74,6 @@ async function registerSettings() {
     config: true,
     type: String,
     choices: systems,
-    default: data.game_system[0].id
+    default: data[0].id
   });
 }

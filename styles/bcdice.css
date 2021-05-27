@@ -13,3 +13,24 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+#bc-form .bcdice-tabs {
+  gap: 0.5rem;
+  border-bottom: black 1px solid;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bc-form button.bcd-macro-button {
+  font-size: 12px;
+  line-height: 16px;
+  text-align: left;
+  margin: 2px 0;
+}
+
+#bc-form .bcdice-macro-page {
+  display: flex;
+  gap: 0.5rem;
+  max-height: 400px;
+  overflow-y: scroll;
+}
