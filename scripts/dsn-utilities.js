@@ -46,16 +46,7 @@ function appendDSNRoll(acc, value, sides) {
 
 async function roll(system, formula) {
   const aliasText = game.i18n.localize("fvtt-bcdice.alias");
-  const userMessageOptions = {
-    content: `<p><em>${system}:</em> ${formula}</p>`,
-  };
-  const secret = formula.charAt(0).toLowerCase() === "s";
-  if (secret) {
-    userMessageOptions.type = 1;
-    userMessageOptions.whisper = [user.id];
-  }
 
-  ChatMessage.create(userMessageOptions);
   try {
     const data = await getRoll(system, toHalfWidth(formula));
 
@@ -67,7 +58,7 @@ async function roll(system, formula) {
 
     const message = ` <div>
                       <p>
-                        <em>${system}:</em>
+                        <em>${system}:</em> ${formula}
                       </p>
                       <div>
                         ${results}
