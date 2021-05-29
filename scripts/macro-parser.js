@@ -41,10 +41,9 @@ export default class MacroParser {
   constructor(settings = {}) {
     this.settings = settings;
     const header = new RegExp(
-      escape(settings.headers?.start ?? "■") +
-        "(.+?)" +
-        escape(settings.headers?.end ?? "=") +
-        "+",
+      `^\\s*${escape(settings.headers?.start ?? "■")}(.+?)\\s+(?:${escape(
+        settings.headers?.end ?? "="
+      )})*\\s*$`,
       "i"
     );
     const macro = new RegExp(
