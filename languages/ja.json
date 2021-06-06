@@ -20,7 +20,7 @@
   "fvtt-bcdice.serverSettingName": "BCDice APIサーバ選択",
   "fvtt-bcdice.replacements": "変数",
   "fvtt-bcdice.replacementsHeader": "変数を設定します（チャパレサイトで//で始まるもの）",
-  "fvtt-bcdice.replacementsTextHint": "各列にFormat is 「変数名=値」というふうに記述すると、チャットパレットで使用するときは{変数名}として使用できます。",
+  "fvtt-bcdice.replacementsTextHint": "各列に「変数名=値」というふうに記述すると、チャットパレットで使用するときは{変数名}として使用できます。変数の中に別の変数を使用することもできます。",
   "fvtt-bcdice.serverSettingHint": "APIサーバはこちらからご確認ください: https://api-status.bcdice.org/",
   "fvtt-bcdice.tabName": "タブ名",
   "fvtt-bcdice.systemSettingName": "デフォルトシステム",
