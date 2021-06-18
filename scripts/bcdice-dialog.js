@@ -397,7 +397,7 @@ export default class BCDialog extends FormApplication {
           },
         },
       },
-      { width: 600 }
+      { width: 400, height:300}
     );
     this.dialog.render(true);
   }

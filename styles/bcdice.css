@@ -34,3 +34,5 @@
   max-height: 400px;
   overflow-y: scroll;
 }
+
+.window-content .dialog-content textarea{min-height:100px}
