@@ -64,3 +64,14 @@ https://foundryvtt.wiki/ja/home
 - Added Secret Roll Support
 - Added Roller Persistance setting
 - Bug Fixes
+
+  2.0.0
+
+- Added one-line macro support by Spice King
+
+  2.0.1
+
+- removed system name from the chat message that contains the commands
+- removed system name from the BCdice response, made that into the chat card alias instead
+- removed the error message when command is not found
+As requested by the Japanese community
