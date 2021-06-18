@@ -1,6 +1,6 @@
 # BCRoller
 
-![Foundry Version Compatability](https://img.shields.io/badge/Foundry-v0.7.9-informational)
+![Foundry Version Compatability](https://img.shields.io/badge/Foundry-v0.8.7-informational)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/jsinme/fvtt-bcdice/latest/module.zip)
 
 A module to query the BCDice API for dice rolls. BCDice is the largest dice rolling bot in Japan, containing 100s of different TRPG systems and playstyles.　You can find the sourcecode [here](https://github.com/bcdice/BCDice). Please feel free to join their Discord and discuss your favorite Japanese TRPGs. You can even submit localization files for them.
