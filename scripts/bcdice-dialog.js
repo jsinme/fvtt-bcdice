@@ -358,7 +358,7 @@ export default class BCDialog extends FormApplication {
           },
         },
       },
-      default: "ok",
+      //default: "ok",
     });
     this.dialog.render(true);
   }
