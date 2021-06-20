@@ -3,7 +3,7 @@
  * @param {string} line
  * @returns string
  */
-function escape(line) {
+ function escape(line) {
   return line.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
@@ -41,9 +41,10 @@ export default class MacroParser {
   constructor(settings = {}) {
     this.settings = settings;
     const header = new RegExp(
-      `^\\s*${escape(settings.headers?.start ?? "■")}(.+?)\\s+(?:${escape(
-        settings.headers?.end ?? "="
-      )})*\\s*$`,
+      escape(settings.headers?.start ?? "■") +
+        "(.+?)" +
+        escape(settings.headers?.end ?? "=") +
+        "+",
       "i"
     );
     const macro = new RegExp(

@@ -358,6 +358,7 @@ export default class BCDialog extends FormApplication {
           },
         },
       },
+      default: "ok",
     });
     this.dialog.render(true);
   }
@@ -397,7 +398,7 @@ export default class BCDialog extends FormApplication {
           },
         },
       },
-      { width: 400, height:300}
+      { width: 500, height:300 }
     );
     this.dialog.render(true);
   }
