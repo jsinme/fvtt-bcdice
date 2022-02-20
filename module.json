@@ -5,8 +5,8 @@
   "version": "This is auto replaced",
   "library": "false",
   "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "0.8.7",
+  "minimumCoreVersion": "9.249",
+  "compatibleCoreVersion": "9.249",
   "authors": [
     {
       "name": "Jason",

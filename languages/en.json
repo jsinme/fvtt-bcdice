@@ -34,5 +34,9 @@
   "fvtt-bcdice.newMacro": "New Macro",
   "fvtt-bcdice.defaultHeader": "Default Header",
   "fvtt-bcdice.addHeader": "Add Header",
-  "fvtt-bcdice.addMacro": "Add Macro"
+  "fvtt-bcdice.addMacro": "Add Macro",
+  "fvtt-bcdice.keybindName": "Open BC Dice Roller",
+  "fvtt-bcdice.keybindHint": "This is a hint for the keybinding",
+  "fvtt-bcdice.formulaPersistanceSettingName": "Formula Persistance",
+  "fvtt-bcdice.formulaPersistanceSettingHint": "Should the formula in the text input stay after pressing Enter / Roll?"
 }

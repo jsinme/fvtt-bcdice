@@ -16,44 +16,60 @@ Hooks.once("init", async () => {
 
   document.head.appendChild(select2Style);
   document.head.appendChild(select2Script);
-});
 
-Hooks.once("ready", async () => {
   roller = await setupRoller();
-  document.addEventListener("keydown", event => {
-    if (event.ctrlKey && event.shiftKey && event.key === "B") showRoller(roller);
-  });
+  registerKeybinds();
 });
 
 Hooks.on("renderSceneControls", async function () {
   if (!$("#bc-dice-control").length) {
-    $("#controls").append('<li class="scene-control" id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>');
+    $("#controls > .main-controls").append('<li class="scene-control" id="bc-dice-control" title="BC Dice"><i class="fas fa-dice"></i></li>');
     $("#bc-dice-control").click(() => {
       showRoller(roller);
     });
   }
 });
 
+async function registerKeybinds() {
+  game.keybindings.register("fvtt-bcdice", 'open', {
+    name: game.i18n.localize("fvtt-bcdice.keybindName"),
+    hint: game.i18n.localize("fvtt-bcdice.keybindHint"),
+    editable: [
+      {
+        key: 'KeyB',
+        modifiers: ["Control", "Shift"],
+      },
+    ],
+    onDown: () => {
+      showRoller(roller)
+    },
+    precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+  });
+}
+
 async function registerSettings() {
-  const persistanceSettingName = game.i18n.localize("fvtt-bcdice.persistanceSettingName");
-  const persistanceSettingHint = game.i18n.localize("fvtt-bcdice.persistanceSettingHint");
-  const serverSettingName = game.i18n.localize("fvtt-bcdice.serverSettingName");
-  const serverSettingHint = game.i18n.localize("fvtt-bcdice.serverSettingHint");
-  const systemSettingName = game.i18n.localize("fvtt-bcdice.systemSettingName");
-  const systemSettingHint = game.i18n.localize("fvtt-bcdice.systemSettingHint");
 
   game.settings.register("fvtt-bcdice", "roller-persistance", {
-    name: persistanceSettingName,
-    hint: persistanceSettingHint,
+    name: game.i18n.localize("fvtt-bcdice.persistanceSettingName"),
+    hint: game.i18n.localize("fvtt-bcdice.persistanceSettingHint"),
     scope: "client",
     config: true,
     type: Boolean,
     default: true
   });
 
+  game.settings.register("fvtt-bcdice", "formula-persistance", {
+    name: game.i18n.localize("fvtt-bcdice.formulaPersistanceSettingName"),
+    hint: game.i18n.localize("fvtt-bcdice.formulaPersistanceSettingHint"),
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
   game.settings.register("fvtt-bcdice", "bc-server", {
-    name: serverSettingName,
-    hint: serverSettingHint,
+    name: game.i18n.localize("fvtt-bcdice.serverSettingName"),
+    hint: game.i18n.localize("fvtt-bcdice.serverSettingHint"),
     scope: "world",
     config: true,
     type: String,
@@ -68,8 +84,8 @@ async function registerSettings() {
   }, {});
 
   game.settings.register("fvtt-bcdice", "game-system", {
-    name: systemSettingName,
-    hint: systemSettingHint,
+    name: game.i18n.localize("fvtt-bcdice.systemSettingName"),
+    hint: game.i18n.localize("fvtt-bcdice.systemSettingHint"),
     scope: "world",
     config: true,
     type: String,

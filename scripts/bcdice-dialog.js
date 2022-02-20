@@ -96,8 +96,8 @@ export default class BCDialog extends FormApplication {
     html.find("[data-header] > h3").click(this._headerClick.bind(this));
     html.find("button[data-delete-tab]").click(this._deleteTab.bind(this));
     html
-    .find("button[data-delete-header]")
-    .click(this._deleteHeader.bind(this));
+      .find("button[data-delete-header]")
+      .click(this._deleteHeader.bind(this));
     html.find("a[data-delete-macro]").click(this._deleteMacro.bind(this));
     html.find("button.bcd-macro-button").click(this._macroClick.bind(this));
     html
@@ -204,6 +204,10 @@ export default class BCDialog extends FormApplication {
   _onRollButton() {
     const rollFormula = this.form.querySelector("#bc-formula").value;
     this.roll(rollFormula);
+    const shouldPersistInput = game.settings.get("fvtt-bcdice", "formula-persistance");
+    if (!shouldPersistInput) {
+      document.getElementById("bc-formula").value = '';
+    }
   }
 
   async _deleteTab(event) {
