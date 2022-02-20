@@ -201,12 +201,17 @@ export default class BCDialog extends FormApplication {
       .macro;
   }
 
-  _onRollButton() {
+  _onRollButton(ev) {
     const rollFormula = this.form.querySelector("#bc-formula").value;
     this.roll(rollFormula);
     const shouldPersistInput = game.settings.get("fvtt-bcdice", "formula-persistance");
     if (!shouldPersistInput) {
-      document.getElementById("bc-formula").value = '';
+      this.form.querySelector("#bc-formula").value = '';
+    }
+
+    const shouldPersistRoller = game.settings.get("fvtt-bcdice", "roller-persistance");
+    if (ev.shiftKey || !shouldPersistRoller) {
+      this.close();
     }
   }
 
@@ -441,7 +446,7 @@ export default class BCDialog extends FormApplication {
     if (event.key === "Enter") {
       event.preventDefault();
       event.stopPropagation();
-      this._onRollButton();
+      this._onRollButton(event);
     }
   }
 }
