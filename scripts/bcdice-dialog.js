@@ -432,7 +432,8 @@ export default class BCDialog extends FormApplication {
     const data = mergeObject(getDataForCurrentEntity(), expandObject(formData));
     data.tabs = tabs;
     await getCurrentEntity().setFlag("fvtt-bcdice", "macro-data", data);
-    this._render();
+    // this._render();
+    // FIXME this _render is causing an onChange event to be fired on the input that prevents the Roll button to work unless you unselect the input first and trigger the onChange event manually
   }
 
   _onKeyDown(event) {
