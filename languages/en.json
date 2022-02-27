@@ -36,7 +36,7 @@
   "fvtt-bcdice.addHeader": "Add Header",
   "fvtt-bcdice.addMacro": "Add Macro",
   "fvtt-bcdice.keybindName": "Open BC Dice Roller",
-  "fvtt-bcdice.keybindHint": "This is a hint for the keybinding",
+  "fvtt-bcdice.keybindHint": "This keybind will open the BCDice Roller, as an alternative to the sidebar button",
   "fvtt-bcdice.formulaPersistanceSettingName": "Formula Persistance",
   "fvtt-bcdice.formulaPersistanceSettingHint": "Should the formula in the text input stay after pressing Enter / Roll?"
 }

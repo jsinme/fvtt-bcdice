@@ -1,5 +1,5 @@
 import {
-  getCurrentEntity,
+  getCurrentDocument,
   getDataForCurrentEntity,
   roll,
 } from "./dsn-utilities.js";
@@ -64,12 +64,12 @@ export default class BCDialog extends FormApplication {
 
   async getData() {
     const macros = getDataForCurrentEntity();
-    const entity = getCurrentEntity();
+    const entity = getCurrentDocument();
     return {
       editing: this.options.isEditable ?? false,
       systems: await getSystems(),
       data: macros,
-      type: entity.constructor.name,
+      type: entity.constructor.documentName,
       entity: entity,
     };
   }
@@ -431,9 +431,8 @@ export default class BCDialog extends FormApplication {
     const tabs = formData.tabs || getDataForCurrentEntity().tabs;
     const data = mergeObject(getDataForCurrentEntity(), expandObject(formData));
     data.tabs = tabs;
-    await getCurrentEntity().setFlag("fvtt-bcdice", "macro-data", data);
-    // this._render();
-    // FIXME this _render is causing an onChange event to be fired on the input that prevents the Roll button to work unless you unselect the input first and trigger the onChange event manually
+    await getCurrentDocument().setFlag("fvtt-bcdice", "macro-data", data);
+    this._render();
   }
 
   _onKeyDown(event) {
