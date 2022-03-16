@@ -44,7 +44,7 @@ export default class MacroParser {
       escape(settings.headers?.start ?? "■") +
         "(.+?)" +
         escape(settings.headers?.end ?? "=") +
-        "+",
+        "*",
       "i"
     );
     const macro = new RegExp(
