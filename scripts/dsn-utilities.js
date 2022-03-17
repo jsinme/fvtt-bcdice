@@ -116,7 +116,7 @@ async function roll(system, formula) {
 function getCurrentDocument() {
   if (
     canvas?.tokens?.controlled.length === 1 &&
-    (game.user.isGM || canvas.tokens.controlled[0].actor.permission === CONST.ENTITY_PERMISSION.OWNER)
+    (game.user.isGM || canvas.tokens.controlled[0].actor.permission === CONST.ENTITY_PERMISSIONS.OWNER)
   ) {
     return canvas.tokens.controlled[0].document;
   }
