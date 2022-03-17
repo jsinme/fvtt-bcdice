@@ -1,6 +1,6 @@
 # BCRoller
 
-![Foundry Version Compatability](https://img.shields.io/badge/Foundry-v0.8.7-informational)
+![Foundry Version Compatibility](https://img.shields.io/badge/Foundry-v9-informational)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/jsinme/fvtt-bcdice/latest/module.zip)
 
 A module to query the BCDice API for dice rolls. BCDice is the largest dice rolling bot in Japan, containing 100s of different TRPG systems and playstyles.　You can find the sourcecode [here](https://github.com/bcdice/BCDice). Please feel free to join their Discord and discuss your favorite Japanese TRPGs. You can even submit localization files for them.
@@ -17,13 +17,13 @@ https://foundryvtt.wiki/ja/home
 
 ## Changelog
 
-0.1
+### 0.1
 
 - BCDice Control in left controls bar
 - Roller Application that allows a user to select from a list of available systems, input a command, and submit that command to the api
 - Chat Message containing result fo the roll
 
-  0.2
+### 0.2
 
 - Added keyboard shortcut for launching Roller (Ctrl + Shift + B)
 - Browser will focus on the command input field when Roller is brought up
@@ -32,16 +32,16 @@ https://foundryvtt.wiki/ja/home
 - Roller will now remember the last selected game system when reopened
 - Result chat message will now also contain the original command below the result
 
-  0.2.1
+### 0.2.1
 
 - Added help button to get info on a System
 - Added a sound to be played when a roll occurs
 
-  0.2.2
+### 0.2.2
 
 - Fixed formatting for System help messages
 
-  0.2.3
+### 0.2.3
 
 - Changed dice rolling sound to native foundry sound
 - Special characters in commands are now escaped properly
@@ -50,28 +50,43 @@ https://foundryvtt.wiki/ja/home
 - Roller outputs have been reformated for clarity
 - Added link to bcdice docs at the top of each System help message
 
-  0.2.4
+### 0.2.4
 
 - Added localization for Japanese
 
-  0.3 Dice So Nice!
+### 0.3 Dice So Nice!
 
 - Added support for DSN
 
-  0.4
+### 0.4
 
 - Added System Search
 - Added Secret Roll Support
 - Added Roller Persistance setting
 - Bug Fixes
 
-  2.0.0
+### 2.0.0
 
 - Added one-line macro support by Spice King
 
-  2.0.1
+### 2.0.1
 
 - removed system name from the chat message that contains the commands
 - removed system name from the BCdice response, made that into the chat card alias instead
 - removed the error message when command is not found
 As requested by the Japanese community
+
+### 3.0.0 - V9 compatibility
+
+- Upping mayor version as this is not backward-compatible with versions < V9
+- Fixed sidebar icon
+- Updated keybindings to use the new Keybindings API
+- Added `Formula Persistance` module setting for configuring if the roller should remain after a roll
+- Fixed `Roller Persistance` module setting that was present but not working
+- Bugfix that prevented the Roll button to work on the first click after changing the formula input
+- Bugfix that prevented headers `### ■` that had no header trim values from working.
+
+### 3.0.1
+
+- Bugfix where header line parsing was not using start-of-string `^` nor end-of-string `$` anchors that caused some incorrect parsing
+- Bugfix for importing without any header start nor trim not sending values to Default Header as expected.

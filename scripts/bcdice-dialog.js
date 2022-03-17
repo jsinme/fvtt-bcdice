@@ -1,5 +1,5 @@
 import {
-  getCurrentEntity,
+  getCurrentDocument,
   getDataForCurrentEntity,
   roll,
 } from "./dsn-utilities.js";
@@ -64,12 +64,12 @@ export default class BCDialog extends FormApplication {
 
   async getData() {
     const macros = getDataForCurrentEntity();
-    const entity = getCurrentEntity();
+    const entity = getCurrentDocument();
     return {
       editing: this.options.isEditable ?? false,
       systems: await getSystems(),
       data: macros,
-      type: entity.constructor.name,
+      type: entity.constructor.documentName,
       entity: entity,
     };
   }
@@ -96,8 +96,8 @@ export default class BCDialog extends FormApplication {
     html.find("[data-header] > h3").click(this._headerClick.bind(this));
     html.find("button[data-delete-tab]").click(this._deleteTab.bind(this));
     html
-    .find("button[data-delete-header]")
-    .click(this._deleteHeader.bind(this));
+      .find("button[data-delete-header]")
+      .click(this._deleteHeader.bind(this));
     html.find("a[data-delete-macro]").click(this._deleteMacro.bind(this));
     html.find("button.bcd-macro-button").click(this._macroClick.bind(this));
     html
@@ -201,9 +201,18 @@ export default class BCDialog extends FormApplication {
       .macro;
   }
 
-  _onRollButton() {
+  _onRollButton(ev) {
     const rollFormula = this.form.querySelector("#bc-formula").value;
     this.roll(rollFormula);
+    const shouldPersistInput = game.settings.get("fvtt-bcdice", "formula-persistance");
+    if (!shouldPersistInput) {
+      this.form.querySelector("#bc-formula").value = '';
+    }
+
+    const shouldPersistRoller = game.settings.get("fvtt-bcdice", "roller-persistance");
+    if (ev.shiftKey || !shouldPersistRoller) {
+      this.close();
+    }
   }
 
   async _deleteTab(event) {
@@ -422,7 +431,7 @@ export default class BCDialog extends FormApplication {
     const tabs = formData.tabs || getDataForCurrentEntity().tabs;
     const data = mergeObject(getDataForCurrentEntity(), expandObject(formData));
     data.tabs = tabs;
-    await getCurrentEntity().setFlag("fvtt-bcdice", "macro-data", data);
+    await getCurrentDocument().setFlag("fvtt-bcdice", "macro-data", data);
     this._render();
   }
 
@@ -437,7 +446,7 @@ export default class BCDialog extends FormApplication {
     if (event.key === "Enter") {
       event.preventDefault();
       event.stopPropagation();
-      this._onRollButton();
+      this._onRollButton(event);
     }
   }
 }

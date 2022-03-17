@@ -109,18 +109,23 @@ async function roll(system, formula) {
   }
 }
 
-function getCurrentEntity() {
+/**
+ * 
+ * @returns current entity document
+ */
+function getCurrentDocument() {
   if (
     canvas?.tokens?.controlled.length === 1 &&
-    (game.user.isGM || canvas.tokens.controlled[0].actor.permission === 3)
-  )
-    return canvas.tokens.controlled[0];
+    (game.user.isGM || canvas.tokens.controlled[0].actor.permission === CONST.ENTITY_PERMISSION.OWNER)
+  ) {
+    return canvas.tokens.controlled[0].document;
+  }
   return game.user.character ?? game.user;
 }
 
 function getDataForCurrentEntity() {
   return duplicate(
-    getCurrentEntity().getFlag("fvtt-bcdice", "macro-data") ?? {
+    getCurrentDocument().getFlag("fvtt-bcdice", "macro-data") ?? {
       tabs: [],
       importSettings: {},
       replacements: "",
@@ -128,4 +133,4 @@ function getDataForCurrentEntity() {
   );
 }
 
-export { parseBCtoDSN, appendDSNRoll, roll, getCurrentEntity, getDataForCurrentEntity };
+export { parseBCtoDSN, appendDSNRoll, roll, getCurrentDocument, getDataForCurrentEntity };
