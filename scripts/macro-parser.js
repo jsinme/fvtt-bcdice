@@ -3,7 +3,7 @@
  * @param {string} line
  * @returns string
  */
- function escape(line) {
+function escape(line) {
   return line.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
@@ -40,13 +40,16 @@ export default class MacroParser {
    */
   constructor(settings = {}) {
     this.settings = settings;
-    const header = new RegExp(
-      escape(settings.headers?.start ?? "■") +
-        "(.+?)" +
-        escape(settings.headers?.end ?? "=") +
-        "*",
-      "i"
-    );
+    let header;
+    if(settings.headers?.start !== '' || settings.headers?.end != '') {
+      // if any header setting exists, make regex
+      const headerStart = escape(settings.headers?.start ?? "■");
+      const headerEnd = escape(settings.headers?.end ?? "=");
+      header = new RegExp(`^${headerStart}(.+?)${headerEnd}*$`, 'i');
+    } else {
+      // if none exists, match nothing
+      header = new RegExp('a^');
+    }
     const macro = new RegExp(
       `(.*)${escape(settings.macro?.splitter ?? "▼")}(.*)`,
       "i"

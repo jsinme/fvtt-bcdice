@@ -83,5 +83,10 @@ As requested by the Japanese community
 - Updated keybindings to use the new Keybindings API
 - Added `Formula Persistance` module setting for configuring if the roller should remain after a roll
 - Fixed `Roller Persistance` module setting that was present but not working
-- Fixed a bug that prevented the Roll button to work on the first click after changing the formula input
-- Fixed a bug that prevented headers `### ■` that had no header trim values from working.
+- Bugfix that prevented the Roll button to work on the first click after changing the formula input
+- Bugfix that prevented headers `### ■` that had no header trim values from working.
+
+### 3.0.1
+
+- Bugfix where header line parsing was not using start-of-string `^` nor end-of-string `$` anchors that caused some incorrect parsing
+- Bugfix for importing without any header start nor trim not sending values to Default Header as expected.
