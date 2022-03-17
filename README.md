@@ -84,3 +84,4 @@ As requested by the Japanese community
 - Added `Formula Persistance` module setting for configuring if the roller should remain after a roll
 - Fixed `Roller Persistance` module setting that was present but not working
 - Fixed a bug that prevented the Roll button to work on the first click after changing the formula input
+- Fixed a bug that prevented headers `### ■` that had no header trim values from working.
